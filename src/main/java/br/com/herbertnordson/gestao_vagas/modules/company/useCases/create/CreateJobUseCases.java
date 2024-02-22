@@ -1,4 +1,4 @@
-package br.com.herbertnordson.gestao_vagas.modules.company.useCases;
+package br.com.herbertnordson.gestao_vagas.modules.company.useCases.create;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

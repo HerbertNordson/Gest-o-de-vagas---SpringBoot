@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.herbertnordson.gestao_vagas.modules.company.entities.JobEntity;
-import br.com.herbertnordson.gestao_vagas.modules.company.useCases.CreateJobUseCases;
+import br.com.herbertnordson.gestao_vagas.modules.company.useCases.create.CreateJobUseCases;
 import jakarta.validation.Valid;
 
 @RestController
