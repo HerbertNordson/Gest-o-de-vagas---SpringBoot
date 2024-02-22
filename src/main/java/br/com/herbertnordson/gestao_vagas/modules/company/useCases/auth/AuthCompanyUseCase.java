@@ -1,5 +1,7 @@
 package br.com.herbertnordson.gestao_vagas.modules.company.useCases.auth;
 
+import java.time.Instant;
+
 import javax.naming.AuthenticationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +42,10 @@ public class AuthCompanyUseCase {
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
         var token = JWT.create().withIssuer("vagas")
+                .withExpiresAt(Instant.now().plus(java.time.Duration.ofHours(2)))
                 .withSubject(company.getId().toString())
                 .sign(algorithm);
-                
+
         return token;
     }
 
