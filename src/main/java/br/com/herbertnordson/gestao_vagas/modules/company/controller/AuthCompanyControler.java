@@ -5,6 +5,7 @@ import javax.naming.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,14 +15,14 @@ import br.com.herbertnordson.gestao_vagas.modules.company.dto.AuthCompanyDTO;
 import br.com.herbertnordson.gestao_vagas.modules.company.useCases.auth.AuthCompanyUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/company")
 public class AuthCompanyControler {
 
     @Autowired
     private AuthCompanyUseCase authCompanyUseCase;
 
-    @PostMapping("/company")
-    public ResponseEntity<String> create(@RequestBody AuthCompanyDTO authCompanyDTO) {
+    @PostMapping("/auth")
+    public ResponseEntity<Object> create(@RequestBody AuthCompanyDTO authCompanyDTO) {
         try {
             var result = this.authCompanyUseCase.execute(authCompanyDTO);
             return ResponseEntity.ok().body(result);

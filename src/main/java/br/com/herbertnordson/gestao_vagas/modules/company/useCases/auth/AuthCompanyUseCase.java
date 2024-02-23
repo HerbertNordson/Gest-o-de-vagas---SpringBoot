@@ -1,6 +1,7 @@
 package br.com.herbertnordson.gestao_vagas.modules.company.useCases.auth;
 
 import java.time.Instant;
+import java.util.Arrays;
 
 import javax.naming.AuthenticationException;
 
@@ -14,6 +15,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
 import br.com.herbertnordson.gestao_vagas.modules.company.dto.AuthCompanyDTO;
+import br.com.herbertnordson.gestao_vagas.modules.company.dto.AuthCompanyResponseDTO;
 import br.com.herbertnordson.gestao_vagas.modules.company.repository.CompanyRepository;
 
 @Service
@@ -28,7 +30,7 @@ public class AuthCompanyUseCase {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
+    public AuthCompanyResponseDTO execute(AuthCompanyDTO authCompanyDTO) throws AuthenticationException {
 
         var company = this.companyRepository.findByUsername(authCompanyDTO.getUsername()).orElseThrow(
                 () -> {
@@ -41,13 +43,21 @@ public class AuthCompanyUseCase {
             throw new AuthenticationException();
 
         Algorithm algorithm = Algorithm.HMAC256(secretKey);
+
+        var expiresToken = Instant.now().plus(java.time.Duration.ofHours(2));
+
         var token = JWT.create()
                 .withIssuer("vagas")
-                .withExpiresAt(Instant.now().plus(java.time.Duration.ofHours(2)))
+                .withExpiresAt(expiresToken)
                 .withSubject(company.getId().toString())
+                .withClaim("roles", Arrays.asList("COMPANY"))
                 .sign(algorithm);
 
-        return token;
+        var authCompanyResponseDTO = AuthCompanyResponseDTO.builder()
+                .access_token(token)
+                .build();
+                
+        return authCompanyResponseDTO;
     }
 
 }

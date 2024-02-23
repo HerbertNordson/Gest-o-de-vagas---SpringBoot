@@ -1,4 +1,4 @@
-package br.com.herbertnordson.gestao_vagas.modules.candidate.useCases.auth;
+package br.com.herbertnordson.gestao_vagas.modules.candidate.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

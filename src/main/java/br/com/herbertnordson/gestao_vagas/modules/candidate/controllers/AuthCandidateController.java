@@ -12,13 +12,13 @@ import br.com.herbertnordson.gestao_vagas.modules.candidate.dto.AuthCandidateReq
 import br.com.herbertnordson.gestao_vagas.modules.candidate.useCases.auth.AuthCandidateUseCase;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/candidate")
 public class AuthCandidateController {
     
     @Autowired
     private AuthCandidateUseCase authCandidateUseCase;
 
-    @PostMapping("/candidate")
+    @PostMapping("/auth")
     public ResponseEntity<Object> auth(@RequestBody AuthCandidateRequestDTO authCandidateRequestDTO){
         try {
            var token = this.authCandidateUseCase.execute(authCandidateRequestDTO);
